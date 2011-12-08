@@ -67,5 +67,9 @@
     <dependency org="org.ccil.cowan.tagsoup" name="tagsoup" rev="1.2" conf="xml->default"/>
 
     <dependency org="junit" name="junit" rev="4.4" conf="test->default"/>
+
+    <dependency org="log4j" name="log4j" rev="1.2.15" conf="core->default"/>
+
+
   </dependencies>
 </ivy-module>

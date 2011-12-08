@@ -24,6 +24,12 @@
 <project name="cascading" default="compile" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
   <dirname property="cascading.basedir" file="${ant.file.cascading}"/>
+  <property name="ivy.dir" location="ivy" />
+  <loadproperties srcfile="${ivy.dir}/libraries.properties"/>
+  <property name="mvnrepo" value="http://repo2.maven.org/maven2"/>
+  <property name="ivy.jar" location="${ivy.dir}/ivy-${ivy.version}.jar"/>
+  <property name="ivy_repo_url" 
+    value="${mvnrepo}/org/apache/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar"/>
 
   <property name="build.number" value="dev"/>
   <property file="${user.home}/build.properties"/>
@@ -474,7 +480,55 @@
 
   </target>
 
-  <target name="retrieve">
+  <target name="ivy-init-dirs">
+    <mkdir dir="${build.ivy.dir}" />
+    <mkdir dir="${build.ivy.lib.dir}" />
+    <mkdir dir="${build.ivy.report.dir}" />
+  </target>
+
+  <target name="ivy-probe-antlib" >
+    <condition property="ivy.found">
+      <typefound uri="antlib:org.apache.ivy.ant" name="cleancache"/>
+    </condition>
+  </target>
+
+  <target name="ivy-download" description="To download ivy" unless="offline">
+    <get src="${ivy_repo_url}" dest="${ivy.jar}" usetimestamp="true"/>
+  </target>
+
+  <!--
+  To avoid Ivy leaking things across big projects, always load Ivy in the same classloader.
+  Also note how we skip loading Ivy if it is already there, just to make sure all is well.
+  -->
+  <target name="ivy-init-antlib" depends="ivy-download,ivy-init-dirs,ivy-probe-antlib" unless="ivy.found">
+    <typedef uri="antlib:org.apache.ivy.ant" onerror="fail"
+      loaderRef="ivyLoader">
+      <classpath>
+        <pathelement location="${ivy.jar}"/>
+      </classpath>
+    </typedef>
+    <fail >
+      <condition >
+        <not>
+          <typefound uri="antlib:org.apache.ivy.ant" name="cleancache"/>
+        </not>
+      </condition>
+      You need Apache Ivy 2.0 or later from http://ant.apache.org/
+      It could not be loaded from ${ivy_repo_url}
+    </fail>
+  </target>
+
+
+  <target name="ivy-init" depends="ivy-init-antlib" >
+
+    <!--Configure Ivy by reading in the settings file
+        If anyone has already read in a settings file into this settings ID, it gets priority
+    -->
+    <ivy:configure settingsid="${ant.project.name}.ivy.settings" file="${ivysettings.xml}" override='false'/>
+  </target>
+
+
+  <target name="retrieve" depends="ivy-init-antlib">
     <ivy:settings id="ivy.conjars.settings" url="http://conjars.org/repo/ivysettings.xml"/>
 
     <ivy:retrieve settingsRef="ivy.conjars.settings" conf="core"
