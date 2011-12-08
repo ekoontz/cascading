@@ -29,6 +29,7 @@ import cascading.CascadingException;
 import org.apache.hadoop.fs.Path;
 import org.jets3t.service.S3Service;
 import org.jets3t.service.S3ServiceException;
+import org.jets3t.service.ServiceException;
 import org.jets3t.service.impl.rest.httpclient.RestS3Service;
 import org.jets3t.service.model.S3Bucket;
 import org.jets3t.service.model.S3Object;
@@ -283,6 +284,14 @@ public class S3Util
       return object.getDataInputStream();
       }
     catch( S3ServiceException exception )
+      {
+      IOException ioException = new IOException( "could get object inputstream: " + object.getKey() );
+
+      ioException.initCause( exception );
+
+      throw ioException;
+      }
+    catch( ServiceException exception )
       {
       IOException ioException = new IOException( "could get object inputstream: " + object.getKey() );
 
