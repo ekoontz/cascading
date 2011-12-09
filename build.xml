@@ -180,7 +180,7 @@
     <echo message="build.number=${cascading.release.build}" file="${build.core}/cascading/build.number.properties"/>
   </target>
 
-  <target name="compile" depends="init,echo-compile-buildnum">
+  <target name="compile" depends="init,retrieve,echo-compile-buildnum">
     <echo message="building cascading..."/>
 
     <javac srcdir="${src.core}" destdir="${build.core}" verbose="off" debug="${javac.debug}" includeantruntime="false">
@@ -524,9 +524,17 @@
     <!--Configure Ivy by reading in the settings file
         If anyone has already read in a settings file into this settings ID, it gets priority
     -->
-    <ivy:configure settingsid="${ant.project.name}.ivy.settings" file="${ivysettings.xml}" override='false'/>
+    <ivy:configure settingsid="${ant.project.name}.ivy.settings" file="ivysettings.xml" override='false'/>
   </target>
 
+
+  <target name="myretrieve" depends="ivy-init-antlib">
+    <ivy:settings id="ivy.my.settings" file="ivysettings.xml"/>
+
+    <ivy:retrieve settingsRef="ivy.my.settings" conf="core"
+                  pattern="${lib}/[artifact]-[revision].[ext]" sync="false"/>
+
+  </target>
 
   <target name="retrieve" depends="ivy-init-antlib">
     <ivy:settings id="ivy.conjars.settings" url="http://conjars.org/repo/ivysettings.xml"/>

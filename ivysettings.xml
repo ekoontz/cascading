@@ -25,12 +25,12 @@
 
     <chain name="default" returnFirst="true" checkmodified="true">
 <!--       <resolver ref="local"/> -->
-<!--      <resolver ref="local-m2"/> -->
+<!--       <resolver ref="local-m2"/> -->
 <!--       <resolver ref="conjars"/> -->
-      <!-- <resolver ref="clojars"/> -->
-<!--      <resolver ref="apache"/> -->
-      <resolver ref="maven2"/>
-      <resolver ref="main"/>
+<!--       <resolver ref="clojars"/> -->
+<!--       <resolver ref="apache"/> -->
+           <resolver ref="maven2"/>
+<!--       <resolver ref="main"/> -->
     </chain>
   </resolvers>
 </ivysettings>
