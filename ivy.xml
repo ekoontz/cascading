@@ -57,31 +57,29 @@
   <dependencies>
     <dependency org="org.apache.hadoop" name="hadoop-core" rev="0.20.205.0" conf="core->default"/>
     <dependency org="org.apache.hadoop" name="hadoop-test" rev="0.20.205.0" conf="core->default"/>
-
-<!-- conjars.org is 503. -->
-<!--    <dependency org="thirdparty" name="jgrapht-jdk1.6" rev="0.8.1" conf="core->default"/> -->
-
-    <dependency org="jgrapht" name="jgrapht" rev="0.6.0" conf="core->default"/>
-
+    <dependency org="org.codehaus.jackson" name="jackson-mapper-asl" rev="1.9.2" conf="core->default"/>
     <dependency org="com.jamesmurty.utils" name="java-xmlbuilder" rev="0.4" conf="core->default" />
-    <dependency org="riffle" name="riffle" rev="0.1-dev" conf="core->default"/>
+
     <dependency org="org.codehaus.janino" name="janino" rev="2.5.16" conf="core->default"/>
-
     <dependency org="org.ccil.cowan.tagsoup" name="tagsoup" rev="1.2" conf="xml->default"/>
-
     <dependency org="junit" name="junit" rev="4.4" conf="test->default"/>
-
-    <dependency org="log4j" name="log4j" rev="1.2.15" conf="core->default"/>
-
     <dependency org="net.java.dev.jets3t" name="jets3t" rev="0.8.1" conf="core->default"/>
-            
     <dependency org="log4j" name="log4j" rev="1.2.16" conf="core->default"/>
-
     <dependency org="commons-codec" name="commons-codec" rev="1.3" conf="core->default"/>  
-
     <dependency org="commons-logging" name="commons-logging" rev="1.1.1" conf="core->default"/>
-    
     <dependency org="commons-httpclient" name="commons-httpclient" rev="3.1" conf="core->default"/>
+
+    <!-- compiled by hand and installed using: (in top-level of respective source dir): 
+             mvn install:install-file -DgroupId=riffle -DartifactId=riffle -Dversion=0.1-dev 
+                                      -Dpackaging=jar -Dfile=riffle-0.1-dev 
+    -->
+    <dependency org="riffle" name="riffle" rev="0.1-dev" conf="core->default"/>
+
+    <!-- compiled by hand and installed using: (in top-level of respective source dir): 
+             mvn install:install-file -DgroupId=org.jgrapht -DartifactId=jgrapht -Dversion=0.8.2
+                                      -Dpackaging=jar -Dfile=jgrapht-jdk1.6.jar
+    -->
+    <dependency org="org.jgrapht" name="jgrapht" rev="0.8.2" conf="core->default"/>
 
   </dependencies>
 </ivy-module>

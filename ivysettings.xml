@@ -24,13 +24,13 @@
     <ibiblio name="maven2" root="${repo.maven.org}" pattern="${maven2.pattern.ext}" m2compatible="true"/>
 
     <chain name="default" returnFirst="true" checkmodified="true">
-<!--       <resolver ref="local"/> -->
-<!--       <resolver ref="local-m2"/> -->
-<!--       <resolver ref="conjars"/> -->
+      <resolver ref="local"/>
+      <resolver ref="local-m2"/>
+      <resolver ref="conjars"/>
 <!--       <resolver ref="clojars"/> -->
-<!--       <resolver ref="apache"/> -->
-           <resolver ref="maven2"/>
-<!--       <resolver ref="main"/> -->
+      <resolver ref="apache"/>
+      <resolver ref="maven2"/>
+      <resolver ref="main"/>
     </chain>
   </resolvers>
 </ivysettings>

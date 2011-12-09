@@ -480,12 +480,6 @@
 
   </target>
 
-  <target name="ivy-init-dirs">
-    <mkdir dir="${build.ivy.dir}" />
-    <mkdir dir="${build.ivy.lib.dir}" />
-    <mkdir dir="${build.ivy.report.dir}" />
-  </target>
-
   <target name="ivy-probe-antlib" >
     <condition property="ivy.found">
       <typefound uri="antlib:org.apache.ivy.ant" name="cleancache"/>
@@ -500,7 +494,7 @@
   To avoid Ivy leaking things across big projects, always load Ivy in the same classloader.
   Also note how we skip loading Ivy if it is already there, just to make sure all is well.
   -->
-  <target name="ivy-init-antlib" depends="ivy-download,ivy-init-dirs,ivy-probe-antlib" unless="ivy.found">
+  <target name="ivy-init-antlib" depends="ivy-download,ivy-probe-antlib" unless="ivy.found">
     <typedef uri="antlib:org.apache.ivy.ant" onerror="fail"
       loaderRef="ivyLoader">
       <classpath>
