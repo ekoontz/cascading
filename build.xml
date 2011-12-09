@@ -171,6 +171,9 @@
     <mkdir dir="${build.xml}"/>
     <mkdir dir="${build.test}"/>
     <mkdir dir="${test.results}"/>
+    <mkdir dir="lib/test"/>
+    <mkdir dir="lib/xml"/>
+
 
     <property name="CLASSPATH" refid="project.class.path"/>
     <!--<echo message="${CLASSPATH}"/>-->
@@ -533,11 +536,15 @@
   <target name="retrieve" depends="ivy-init-antlib">
     <ivy:settings id="ivy.conjars.settings" url="http://conjars.org/repo/ivysettings.xml"/>
 
+<!--    <ivy:retrieve settingsRef="ivy.conjars.settings" conf="core"
+                  pattern="${lib}/[artifact]-[revision].[ext]" sync="false"/>-->
+
     <ivy:retrieve settingsRef="ivy.conjars.settings" conf="core"
                   pattern="${lib}/[artifact]-[revision].[ext]" sync="false"/>
 
-    <ivy:retrieve settingsRef="ivy.conjars.settings" conf="test,xml"
-                  pattern="${lib}/[conf]/[artifact]-[revision].[ext]" sync="false"/>
+
+<!--    <ivy:retrieve settingsRef="ivy.conjars.settings" conf="test,xml"
+                  pattern="${lib}/[conf]/[artifact]-[revision].[ext]" sync="false"/> -->
   </target>
 
   <!--<target name="retrieve-hadoop">-->
